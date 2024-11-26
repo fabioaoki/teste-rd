@@ -29,4 +29,6 @@ public class Client {
 
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
+
+    private boolean active;
 }

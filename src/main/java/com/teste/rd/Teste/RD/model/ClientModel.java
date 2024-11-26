@@ -17,4 +17,5 @@ public class ClientModel {
     private String lastName;
     private LocalDateTime createDate;
     private LocalDateTime lastUpdate;
+    private boolean active;
 }
