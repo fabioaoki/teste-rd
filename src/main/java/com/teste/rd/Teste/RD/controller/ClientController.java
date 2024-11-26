@@ -58,19 +58,32 @@ public class ClientController {
         try {
             log.info("Inactive Client with id: {}", id);
             clientServiceBO.changeStatus(id, false);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.accepted().build();
         } catch (ClientException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponse(e));
         }
     }
+
     @PutMapping("/active/{id}")
     public ResponseEntity<?> clientActive(@PathVariable Long id) {
         try {
             log.info("Active Client with id: {}", id);
             clientServiceBO.changeStatus(id, true);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.accepted().build();
         } catch (ClientException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponse(e));
+        }
+    }
+
+    @PatchMapping("/patch/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<?> patch(@Valid @RequestBody ClientRequestDto clientRequestDto, @PathVariable Long id) {
+        try {
+            log.info("Creating a new client");
+            return ResponseEntity.ok(clientServiceBO.patch(clientRequestDto, id));
+        } catch (ClientException e) {
+            log.error("ClientException: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getErrorResponse(e));
         }
     }
 

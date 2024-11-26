@@ -106,4 +106,25 @@ public class ClientService implements ClientServiceBO {
             repository.save(ClientMapper.MAPPER.toEntity(model));
         }
     }
+
+    @Override
+    public ClientResponseDto patch(ClientRequestDto clientRequestDto, Long id) {
+        log.info("Starting patch operation for client ID: {}", id);
+        ClientModel model = ClientMapper.MAPPER.toModel(getClientAccount(id));
+        log.info("Validating update fields for client ID: {}", id);
+        validUpdateField(clientRequestDto, model);
+        log.info("Saving updated client information for ID: {}", id);
+        return ClientMapper.MAPPER.toDto(repository.save(ClientMapper.MAPPER.toEntity(model)));
+    }
+
+    private void validUpdateField(ClientRequestDto clientRequestDto, ClientModel model) {
+        if (clientRequestDto.getFirstName() != null && !clientRequestDto.getFirstName().trim().isEmpty()) {
+            log.info("Updating first name for client.");
+            model.setFirstName(formatName(clientRequestDto.getFirstName().trim()));
+        }
+        if (clientRequestDto.getLastName() != null && !clientRequestDto.getLastName().trim().isEmpty()) {
+            log.info("Updating last name for client.");
+            model.setLastName(formatName(clientRequestDto.getLastName().trim()));
+        }
+    }
 }
