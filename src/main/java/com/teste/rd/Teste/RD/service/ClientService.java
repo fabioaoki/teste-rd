@@ -100,6 +100,7 @@ public class ClientService implements ClientServiceBO {
     @Override
     public void changeStatus(Long id, boolean active) {
         ClientModel model = ClientMapper.MAPPER.toModel(getClientAccount(id));
+        log.info("Update status by id {}" , id);
         model.setActive(active);
         repository.save(ClientMapper.MAPPER.toEntity(model));
     }

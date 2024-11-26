@@ -63,6 +63,16 @@ public class ClientController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponse(e));
         }
     }
+    @PutMapping("/active/{id}")
+    public ResponseEntity<?> clientActive(@PathVariable Long id) {
+        try {
+            log.info("Active Client with id: {}", id);
+            clientServiceBO.changeStatus(id, true);
+            return ResponseEntity.ok().build();
+        } catch (ClientException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponse(e));
+        }
+    }
 
     private static ErrorResponse getErrorResponse(ClientException e) {
         ErrorResponse errorResponse = new ErrorResponse();
