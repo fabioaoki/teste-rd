@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ClientServiceBO {
 
-    ClientResponseDto save(ClientRequestDto dto) throws ClientException;
+    ClientResponseDto save(ClientRequestDto dto);
 
     ClientResponseDto findById(final Long id) throws ClientException;
 
