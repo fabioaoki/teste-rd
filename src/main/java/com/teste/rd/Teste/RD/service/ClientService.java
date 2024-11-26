@@ -93,7 +93,7 @@ public class ClientService implements ClientServiceBO {
 
     @Override
     public Page<ClientResponseDto> findAll(Pageable pageable) {
-        return null;
+        log.info("Retrieving list of clients");
+        return repository.findAll(pageable).map(ClientMapper.MAPPER::toDto);
     }
-
 }

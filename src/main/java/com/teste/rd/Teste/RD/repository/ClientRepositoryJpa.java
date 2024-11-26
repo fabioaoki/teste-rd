@@ -2,6 +2,8 @@ package com.teste.rd.Teste.RD.repository;
 
 import com.teste.rd.Teste.RD.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -28,5 +30,10 @@ public class ClientRepositoryJpa implements ClientRepositoryImpl {
     @Override
     public Optional<Client> findById(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public Page<Client> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

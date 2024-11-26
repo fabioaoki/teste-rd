@@ -3,9 +3,12 @@ package com.teste.rd.Teste.RD.controller;
 import com.teste.rd.Teste.RD.exception.ClientException;
 import com.teste.rd.Teste.RD.exception.ErrorResponse;
 import com.teste.rd.Teste.RD.request.ClientRequestDto;
+import com.teste.rd.Teste.RD.response.ClientResponseDto;
 import com.teste.rd.Teste.RD.service.ClientServiceBO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +42,13 @@ public class ClientController {
         } catch (ClientException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponse(e));
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ClientResponseDto>> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return ResponseEntity.ok(clientServiceBO.findAll(PageRequest.of(page, size)));
     }
 
     private static ErrorResponse getErrorResponse(ClientException e) {
