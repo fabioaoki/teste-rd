@@ -5,17 +5,20 @@ import com.teste.rd.Teste.RD.exception.ErrorResponse;
 import com.teste.rd.Teste.RD.request.ClientRequestDto;
 import com.teste.rd.Teste.RD.response.ClientResponseDto;
 import com.teste.rd.Teste.RD.service.ClientServiceBO;
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Log4j2
 @RequestMapping("/client")
+@Validated
 public class ClientController {
 
     @Autowired
@@ -23,8 +26,7 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createClient(
-            @RequestBody ClientRequestDto clientRequestDto) throws ClientException {
+    public ResponseEntity<?> createClient(@Valid @RequestBody ClientRequestDto clientRequestDto) throws ClientException {
         try {
             log.info("Creating a new client");
             return ResponseEntity.ok(clientServiceBO.save(clientRequestDto));
