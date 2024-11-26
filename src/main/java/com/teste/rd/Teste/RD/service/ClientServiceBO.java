@@ -13,4 +13,6 @@ public interface ClientServiceBO {
     ClientResponseDto findById(final Long id) throws ClientException;
 
     Page<ClientResponseDto> findAll(final Pageable pageable);
+
+    void changeStatus(Long id, boolean active);
 }

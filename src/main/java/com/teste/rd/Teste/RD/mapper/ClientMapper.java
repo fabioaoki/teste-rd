@@ -18,6 +18,8 @@ public interface ClientMapper {
         return ClientModel.builder().firstName(dto.getFirstName()).lastName(dto.getLastName()).active(true).build();
     }
 
+    ClientModel toModel(Client client);
+
     Client toEntity(ClientModel clientModel);
 
     ClientResponseDto toDto(Client client);

@@ -96,4 +96,11 @@ public class ClientService implements ClientServiceBO {
         log.info("Retrieving list of clients");
         return repository.findAll(pageable).map(ClientMapper.MAPPER::toDto);
     }
+
+    @Override
+    public void changeStatus(Long id, boolean active) {
+        ClientModel model = ClientMapper.MAPPER.toModel(getClientAccount(id));
+        model.setActive(active);
+        repository.save(ClientMapper.MAPPER.toEntity(model));
+    }
 }

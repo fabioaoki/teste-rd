@@ -53,6 +53,17 @@ public class ClientController {
         return ResponseEntity.ok(clientServiceBO.findAll(PageRequest.of(page, size)));
     }
 
+    @DeleteMapping("/inactive/{id}")
+    public ResponseEntity<?> clientInactive(@PathVariable Long id) {
+        try {
+            log.info("Inactive Client with id: {}", id);
+            clientServiceBO.changeStatus(id, false);
+            return ResponseEntity.ok().build();
+        } catch (ClientException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponse(e));
+        }
+    }
+
     private static ErrorResponse getErrorResponse(ClientException e) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrorCode(e.getErrorCode());
