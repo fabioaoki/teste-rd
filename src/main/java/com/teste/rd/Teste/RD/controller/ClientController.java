@@ -31,6 +31,16 @@ public class ClientController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getClientById(@PathVariable Long id) {
+        try {
+            log.info("Fetching client with id: {}", id);
+            return ResponseEntity.ok(clientServiceBO.findById(id));
+        } catch (ClientException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponse(e));
+        }
+    }
+
     private static ErrorResponse getErrorResponse(ClientException e) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrorCode(e.getErrorCode());

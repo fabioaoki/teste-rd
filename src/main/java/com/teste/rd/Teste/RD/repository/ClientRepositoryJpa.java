@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Component
 public class ClientRepositoryJpa implements ClientRepositoryImpl {
@@ -22,5 +23,10 @@ public class ClientRepositoryJpa implements ClientRepositoryImpl {
             entity.setLastUpdate(LocalDateTime.now());
         }
         return repository.save(entity);
+    }
+
+    @Override
+    public Optional<Client> findById(Long id) {
+        return repository.findById(id);
     }
 }

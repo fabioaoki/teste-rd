@@ -85,7 +85,10 @@ public class ClientService implements ClientServiceBO {
 
     @Override
     public ClientResponseDto findById(Long id) throws ClientException {
-        return null;
+        return ClientMapper.MAPPER.toDto(getClientAccount(id));
+    }
+    private Client getClientAccount(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ClientException(ErrorCode.ERROR_CLIENT_NOT_FOUND, "Client not found by id: " + id));
     }
 
     @Override

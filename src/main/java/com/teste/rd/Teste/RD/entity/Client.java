@@ -1,16 +1,14 @@
 package com.teste.rd.Teste.RD.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "client")
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 @EqualsAndHashCode(callSuper = false)
